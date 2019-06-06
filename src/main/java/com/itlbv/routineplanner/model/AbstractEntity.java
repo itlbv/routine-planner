@@ -1,7 +1,7 @@
 package com.itlbv.routineplanner.model;
 
 public abstract class AbstractEntity {
-    private int id;
+    private Integer id;
     private String name;
 
     AbstractEntity(int id, String name) {
@@ -9,7 +9,7 @@ public abstract class AbstractEntity {
         this.name = name;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -23,5 +23,9 @@ public abstract class AbstractEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isNew() {
+        return (getId() == null);
     }
 }
