@@ -40,6 +40,6 @@ public class RoutineServiceImpl implements RoutineService {
 
     @Override
     public List<Routine> getAll() {
-        return null;
+        return repository.getAll();
     }
 }
