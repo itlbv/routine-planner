@@ -10,7 +10,9 @@
     <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
 
     <jdbc:initialize-database enabled="${database.init}">
+        <!--suppress SpringXmlModelInspection -->
         <jdbc:script location="classpath:db/${database.initScript}"/>
+        <!--suppress SpringXmlModelInspection -->
         <jdbc:script encoding="utf-8" location="classpath:db/${database.populateScript}"/>
     </jdbc:initialize-database>
 
