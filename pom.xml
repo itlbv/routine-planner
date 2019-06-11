@@ -26,6 +26,9 @@
     </build>
 
     <properties>
+        <!-- Testing -->
+        <junit-jupiter.version>5.4.2</junit-jupiter.version>
+
         <!-- Logging -->
         <logback.version>1.2.3</logback.version>
         <slf4j.version>1.7.26</slf4j.version>
@@ -41,6 +44,20 @@
     </properties>
 
     <dependencies>
+        <!-- Testing -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit-jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+        </dependency>
+
         <!-- Logging -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
