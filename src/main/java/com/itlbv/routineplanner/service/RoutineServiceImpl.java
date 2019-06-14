@@ -20,22 +20,28 @@ public class RoutineServiceImpl implements RoutineService {
 
     @Override
     public Routine create(Routine routine) {
-        return null;
+        return repository.save(routine);
     }
 
     @Override
     public void update(Routine routine) {
-
+        repository.save(routine);
     }
 
     @Override
     public void delete(int id) throws NotFoundException {
-
+        if (!repository.delete(id)) {
+            throw new NotFoundException("Failed deleting entity with id=" + id);
+        }
     }
 
     @Override
     public Routine get(int id) throws NotFoundException {
-        return null;
+        Routine routine = repository.get(id);
+        if (routine == null) {
+            throw new NotFoundException("Not found entity with id=" + id);
+        }
+        return routine;
     }
 
     @Override
