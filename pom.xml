@@ -35,6 +35,7 @@
 
         <!-- Web -->
         <spring.version>5.1.7.RELEASE</spring.version>
+        <jackson-json.version>2.9.9</jackson-json.version>
         <servlet-api.version>4.0.1</servlet-api.version>
         <jstl.version>1.2</jstl.version>
 
@@ -80,6 +81,11 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-json.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
