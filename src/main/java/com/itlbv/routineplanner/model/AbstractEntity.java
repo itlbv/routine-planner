@@ -8,7 +8,7 @@ public abstract class AbstractEntity {
 
     }
 
-    AbstractEntity(int id, String name) {
+    AbstractEntity(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -31,5 +31,21 @@ public abstract class AbstractEntity {
 
     public boolean isNew() {
         return (getId() == null);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AbstractEntity that = (AbstractEntity) o;
+
+        if (!id.equals(that.id)) return false;
+        return name.equals(that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return id == null ? 0 : id;
     }
 }

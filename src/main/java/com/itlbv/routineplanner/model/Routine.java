@@ -5,7 +5,7 @@ public class Routine extends AbstractEntity {
     public Routine() {
     }
 
-    public Routine(int id, String name) {
+    public Routine(Integer id, String name) {
         super(id, name);
     }
 }
