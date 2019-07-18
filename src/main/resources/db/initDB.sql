@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS rouines;
 DROP TABLE IF EXISTS routines;
 DROP SEQUENCE IF EXISTS global_seq;
 
