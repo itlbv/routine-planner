@@ -35,6 +35,7 @@ public class JdbcRoutineRepositoryImpl implements RoutineRepository {
     @Override
     public Routine save(Routine routine) {
         MapSqlParameterSource map = new MapSqlParameterSource()
+                .addValue("id", routine.getId())
                 .addValue("name", routine.getName());
         if (routine.isNew()) {
             Number newId = simpleInsert.executeAndReturnKey(map);
