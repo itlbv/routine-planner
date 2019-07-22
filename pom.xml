@@ -39,6 +39,9 @@
         <servlet-api.version>4.0.1</servlet-api.version>
         <jstl.version>1.2</jstl.version>
 
+        <!-- Webjars -->
+        <bootstrap.version>4.3.1</bootstrap.version>
+
         <!-- Database -->
         <postgresql.version>42.2.5</postgresql.version>
         <tomcat-jdbc.version>9.0.20</tomcat-jdbc.version>
@@ -102,6 +105,13 @@
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>${jstl.version}</version>
+        </dependency>
+
+        <!-- Webjars -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>${bootstrap.version}</version>
         </dependency>
 
         <!-- Database -->
