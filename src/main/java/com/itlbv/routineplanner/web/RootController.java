@@ -20,7 +20,7 @@ public class RootController {
     }
 
     @RequestMapping("/")
-    public ModelAndView hello() {
+    public ModelAndView index() {
         return new ModelAndView("index");
     }
 
