@@ -31,7 +31,7 @@ public class RoutineServiceImpl implements RoutineService {
     @Override
     public void delete(int id) throws NotFoundException {
         if (!repository.delete(id)) {
-            throw new NotFoundException("Failed deleting entity with id=" + id);
+            throw new NotFoundException("Failed deleting routine with id=" + id);
         }
     }
 
@@ -39,7 +39,7 @@ public class RoutineServiceImpl implements RoutineService {
     public Routine get(int id) throws NotFoundException {
         Routine routine = repository.get(id);
         if (routine == null) {
-            throw new NotFoundException("Not found entity with id=" + id);
+            throw new NotFoundException("Not found routine with id=" + id);
         }
         return routine;
     }
