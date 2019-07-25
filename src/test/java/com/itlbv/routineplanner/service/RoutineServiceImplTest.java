@@ -3,32 +3,15 @@ package com.itlbv.routineplanner.service;
 import com.itlbv.routineplanner.model.Routine;
 import com.itlbv.routineplanner.util.NotFoundException;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.itlbv.routineplanner.RoutineTestData.ROUTINES;
+import static com.itlbv.routineplanner.TestData.ROUTINES;
 import static org.junit.jupiter.api.Assertions.*;
 
-@ContextConfiguration({
-        "classpath:/spring/spring-app.xml",
-        "classpath:/spring/spring-db.xml"
-})
-@ExtendWith(SpringExtension.class)
-@Sql(scripts = "classpath:/db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-class RoutineServiceImplTest {
-
-    static {
-        // needed only for java.util.logging (postgres driver)
-        SLF4JBridgeHandler.install();
-    }
+class RoutineServiceImplTest extends AbstractServiceTest {
 
     @Autowired
     RoutineService service;
@@ -45,38 +28,34 @@ class RoutineServiceImplTest {
 
     @Test
     void update() {
-        Routine routineExpected = new Routine(100000, "testUpdate");
-        Routine routineDB = service.get(100000);
+        Routine routineExpected = new Routine(100003, "testUpdate");
+        Routine routineDB = service.get(100003);
         routineDB.setName("testUpdate");
         service.update(routineDB);
-        assertEquals(routineExpected, service.get(100000));
+        assertEquals(routineExpected, service.get(100003));
     }
 
     @Test
     void delete() {
         List<Routine> routinesExpected = new ArrayList<>(ROUTINES);
         routinesExpected.remove(0);
-        service.delete(100000);
+        service.delete(100003);
         assertArrayEquals(routinesExpected.toArray(), service.getAll().toArray());
     }
 
     @Test
     void deleteNotFound() {
-        assertThrows(NotFoundException.class, () -> {
-            service.delete(0);
-        });
+        assertThrows(NotFoundException.class, () -> service.delete(0));
     }
 
     @Test
     void get() {
-        assertEquals(ROUTINES.get(0), service.get(100000));
+        assertEquals(ROUTINES.get(0), service.get(100003));
     }
 
     @Test
     void getNotFound() {
-        assertThrows(NotFoundException.class, () -> {
-            service.get(0);
-        });
+        assertThrows(NotFoundException.class, () -> service.get(0));
     }
 
     @Test
