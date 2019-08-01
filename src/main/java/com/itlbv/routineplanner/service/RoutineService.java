@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface RoutineService {
 
-    Routine create(Routine routine);
+    Routine create(Routine routine, int userId);
 
-    void update(Routine routine);
+    void update(Routine routine, int userId) throws NotFoundException;
 
-    void delete(int id) throws NotFoundException;
+    void delete(int id, int userId) throws NotFoundException;
 
-    Routine get(int id) throws NotFoundException;
+    Routine get(int id, int userId) throws NotFoundException;
 
-    List<Routine> getAll();
+    List<Routine> getAll(int userId);
 }
