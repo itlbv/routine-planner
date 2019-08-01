@@ -10,6 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class TestData {
     private static final AtomicInteger GLOBAL_START_SEQ = new AtomicInteger(100000);
     public static final List<User> USERS = new ArrayList<>(populateUsers());
+    public static final User USER_1 = USERS.get(0);
     public static final List<Routine> ROUTINES = new ArrayList<>(populateRoutines());
 
     private static List<User> populateUsers() {
@@ -22,9 +23,15 @@ public class TestData {
 
     private static List<Routine> populateRoutines() {
         List<Routine> routines = new ArrayList<>();
-        routines.add(new Routine(GLOBAL_START_SEQ.getAndIncrement(), "routine1"));
-        routines.add(new Routine(GLOBAL_START_SEQ.getAndIncrement(), "routine2"));
-        routines.add(new Routine(GLOBAL_START_SEQ.getAndIncrement(), "routine3"));
+        routines.add(new Routine(GLOBAL_START_SEQ.getAndIncrement(), USERS.get(0), "routine1_1"));
+        routines.add(new Routine(GLOBAL_START_SEQ.getAndIncrement(), USERS.get(0), "routine2_1"));
+        routines.add(new Routine(GLOBAL_START_SEQ.getAndIncrement(), USERS.get(0), "routine3_1"));
+        routines.add(new Routine(GLOBAL_START_SEQ.getAndIncrement(), USERS.get(1), "routine1_2"));
+        routines.add(new Routine(GLOBAL_START_SEQ.getAndIncrement(), USERS.get(1), "routine2_2"));
+        routines.add(new Routine(GLOBAL_START_SEQ.getAndIncrement(), USERS.get(1), "routine3_2"));
+        routines.add(new Routine(GLOBAL_START_SEQ.getAndIncrement(), USERS.get(2), "routine1_3"));
+        routines.add(new Routine(GLOBAL_START_SEQ.getAndIncrement(), USERS.get(2), "routine2_3"));
+        routines.add(new Routine(GLOBAL_START_SEQ.getAndIncrement(), USERS.get(2), "routine3_3"));
         return routines;
     }
 }
