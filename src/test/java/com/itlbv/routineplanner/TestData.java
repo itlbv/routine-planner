@@ -12,6 +12,7 @@ public class TestData {
     public static final List<User> USERS = new ArrayList<>(populateUsers());
     public static final User USER_1 = USERS.get(0);
     public static final List<Routine> ROUTINES = new ArrayList<>(populateRoutines());
+    public static final List<Routine> USER_1_ROUTINES = new ArrayList<>(populateUser01Routines());
 
     private static List<User> populateUsers() {
         List<User> users = new ArrayList<>();
@@ -33,5 +34,13 @@ public class TestData {
         routines.add(new Routine(GLOBAL_START_SEQ.getAndIncrement(), USERS.get(2), "routine2_3"));
         routines.add(new Routine(GLOBAL_START_SEQ.getAndIncrement(), USERS.get(2), "routine3_3"));
         return routines;
+    }
+
+    private static List<Routine> populateUser01Routines() {
+        List<Routine> user01Routines = new ArrayList<>();
+        user01Routines.add(ROUTINES.get(0));
+        user01Routines.add(ROUTINES.get(1));
+        user01Routines.add(ROUTINES.get(2));
+        return user01Routines;
     }
 }
