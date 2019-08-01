@@ -2,6 +2,7 @@ package com.itlbv.routineplanner.web;
 
 import com.itlbv.routineplanner.model.Routine;
 import com.itlbv.routineplanner.service.RoutineService;
+import com.itlbv.routineplanner.util.SecurityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class RoutineRestController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Routine> create(@RequestBody Routine routine) {
         log.info("create " + routine);
-        Routine created = service.create(routine);
+        Routine created = service.create(routine, SecurityUtil.USER_01_ID);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("rest/routines/{id}")
@@ -45,24 +46,24 @@ public class RoutineRestController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void update(@RequestBody Routine routine) {
         log.info("update " + routine);
-        service.update(routine);
+        service.update(routine, SecurityUtil.USER_01_ID);
     }
 
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id) {
         log.info("delete " + id);
-        service.delete(id);
+        service.delete(id, SecurityUtil.USER_01_ID);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Routine get(@PathVariable("id") int id) {
         log.info("get " + id);
-        return service.get(id);
+        return service.get(id, SecurityUtil.USER_01_ID);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Routine> getAll() {
         log.info("getAll");
-        return service.getAll();
+        return service.getAll(SecurityUtil.USER_01_ID);
     }
 }

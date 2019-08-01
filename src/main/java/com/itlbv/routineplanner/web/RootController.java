@@ -2,6 +2,7 @@ package com.itlbv.routineplanner.web;
 
 import com.itlbv.routineplanner.model.Routine;
 import com.itlbv.routineplanner.service.RoutineService;
+import com.itlbv.routineplanner.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,7 @@ public class RootController {
 
     @RequestMapping("/routines")
     public ModelAndView routines() {
-        List<Routine> routines = service.getAll();
+        List<Routine> routines = service.getAll(SecurityUtil.USER_01_ID);
         ModelAndView model = new ModelAndView("routines");
         model.addObject("routines", routines);
         return model;

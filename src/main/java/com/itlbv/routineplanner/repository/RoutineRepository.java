@@ -5,11 +5,11 @@ import com.itlbv.routineplanner.model.Routine;
 import java.util.List;
 
 public interface RoutineRepository {
-    Routine save(Routine routine);
+    Routine save(Routine routine, int userId);
 
-    boolean delete(int id);
+    boolean delete(int id, int userId);
 
-    Routine get(int id);
+    Routine get(int id, int userId);
 
-    List<Routine> getAll();
+    List<Routine> getAll(int userId);
 }
