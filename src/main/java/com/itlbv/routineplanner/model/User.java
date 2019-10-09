@@ -1,14 +1,18 @@
 package com.itlbv.routineplanner.model;
 
+import java.time.LocalDateTime;
+
 public class User extends AbstractEntity {
 
     private String email;
+    private LocalDateTime registrationDateTime;
 
     public User() {
     }
 
     public User(Integer id, String name) {
         super(id, name);
+        this.registrationDateTime = LocalDateTime.now();
     }
 
     public User(Integer id, String name, String email) {
@@ -22,5 +26,9 @@ public class User extends AbstractEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public LocalDateTime getRegistrationDateTime() {
+        return registrationDateTime;
     }
 }
