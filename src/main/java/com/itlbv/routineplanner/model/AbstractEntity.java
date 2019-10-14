@@ -4,7 +4,7 @@ public abstract class AbstractEntity {
     private Integer id;
     private String name;
 
-    public AbstractEntity() {
+    AbstractEntity() {
 
     }
 
