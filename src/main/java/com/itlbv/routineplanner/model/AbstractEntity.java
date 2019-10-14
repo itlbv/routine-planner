@@ -4,11 +4,11 @@ public abstract class AbstractEntity {
     private Integer id;
     private String name;
 
-    AbstractEntity() {
+    public AbstractEntity() {
 
     }
 
-    AbstractEntity(Integer id, String name) {
+    public AbstractEntity(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
