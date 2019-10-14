@@ -14,7 +14,7 @@
                 <a class="nav-link" href="${pageContext.request.contextPath}/routines">Routines</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Users</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/users">Users</a>
             </li>
         </ul>
     </div>

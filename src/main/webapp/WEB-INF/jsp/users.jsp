@@ -8,28 +8,26 @@
 <body>
 <jsp:include page="fragments/header.jsp"/>
 
-<h1 class="text-center">Routines</h1>
+<h1 class="text-center">Users</h1>
 
 <div class="container">
     <table class="table">
         <thead class="thead-light">
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Routine</th>
-            <th scope="col">Description</th>
+            <th scope="col">User</th>
             <th scope="col">Update</th>
             <th scope="col">Delete</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${routines}" var="routine">
-            <jsp:useBean id="routine" type="com.itlbv.routineplanner.model.Routine"/>
+        <c:forEach items="${users}" var="user">
+            <jsp:useBean id="user" type="com.itlbv.routineplanner.model.User"/>
             <tr>
-                <td>${routine.id}</td>
-                <td>${routine.name}</td>
-                <td>${routine.description}</td>
-                <td><a class="btn btn-primary btn-sm" href="routines?action=edit&id=${routine.id}">Edit</a></td>
-                <td><a class="btn btn-primary btn-sm" href="routines?action=delete&id=${routine.id}">Delete</a></td>
+                <td>${user.id}</td>
+                <td>${user.name}</td>
+                <td><a class="btn btn-primary btn-sm" href="users?action=update&id=${user.id}">Update</a></td>
+                <td><a class="btn btn-primary btn-sm" href="users?action=delete&id=${user.id}">Delete</a></td>
             </tr>
         </c:forEach>
         </tbody>
