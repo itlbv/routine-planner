@@ -6,16 +6,22 @@ CREATE SEQUENCE global_seq START WITH 100000;
 
 CREATE TABLE users
 (
-  id    INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  name  VARCHAR NOT NULL,
-  email VARCHAR NOT NULL
+    id            INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+    name          VARCHAR   NOT NULL,
+    email         VARCHAR   NOT NULL,
+    reg_date_time TIMESTAMP NOT NULL
 );
 CREATE UNIQUE INDEX users_unique_email_idx ON users (email);
 
 CREATE TABLE routines
 (
-  id      INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  user_id INTEGER NOT NULL,
-  name    VARCHAR NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+    id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+    user_id     INTEGER NOT NULL,
+    name        VARCHAR NOT NULL,
+    description VARCHAR,
+    start_date  DATE    NOT NULL,
+    end_date    DATE    NOT NULL,
+    time_of_day TIME    NOT NULL,
+    period      INTERVAL,
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );

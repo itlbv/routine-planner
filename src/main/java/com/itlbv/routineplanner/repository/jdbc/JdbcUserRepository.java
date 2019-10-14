@@ -2,6 +2,8 @@ package com.itlbv.routineplanner.repository.jdbc;
 
 import com.itlbv.routineplanner.model.User;
 import com.itlbv.routineplanner.repository.UserRepository;
+import com.itlbv.routineplanner.repository.jdbc.util.JdbcConversionUtil;
+import com.itlbv.routineplanner.repository.jdbc.util.JdbcUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -12,11 +14,16 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.itlbv.routineplanner.repository.jdbc.util.JdbcConversionUtil.convertToUser;
 
 @Repository
 public class JdbcUserRepository implements UserRepository {
-    private static final BeanPropertyRowMapper<User> ROW_MAPPER = BeanPropertyRowMapper.newInstance(User.class);
+    private static final BeanPropertyRowMapper<JdbcUser> ROW_MAPPER = BeanPropertyRowMapper.newInstance(JdbcUser.class);
 
     private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -36,15 +43,24 @@ public class JdbcUserRepository implements UserRepository {
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", user.getId())
                 .addValue("name", user.getName())
-                .addValue("email", user.getEmail());
+                .addValue("email", user.getEmail())
+                .addValue("reg_date_time", formatDate(user.getRegistrationDateTime()));
         if (user.isNew()) {
             Number newId = simpleInsert.executeAndReturnKey(map);
             user.setId(newId.intValue());
         } else if (namedParameterJdbcTemplate.update(
-                "UPDATE users SET name=:name WHERE id=:id", map) == 0) {
+                "UPDATE users" +
+                        " SET name = :name," +
+                        " email = :email," +
+                        " reg_date_time = :reg_date_time" +
+                        " WHERE id = :id", map) == 0) {
             return null;
         }
         return user;
+    }
+
+    private String formatDate(LocalDateTime dateTime) {
+        return dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
     @Override
@@ -54,18 +70,29 @@ public class JdbcUserRepository implements UserRepository {
 
     @Override
     public User get(int id) {
-        List<User> users = jdbcTemplate.query("SELECT * FROM users WHERE id=?", ROW_MAPPER, id);
-        return DataAccessUtils.singleResult(users);
+        List<JdbcUser> jdbcUserList = jdbcTemplate.query("SELECT * FROM users WHERE id=?", ROW_MAPPER, id);
+        JdbcUser jdbcUser = DataAccessUtils.singleResult(jdbcUserList);
+        if (jdbcUser == null) {
+            return null;
+        }
+        return convertToUser(jdbcUser);
     }
 
     @Override
-    public User getByEmail(String email) {
-        List<User> users = jdbcTemplate.query("SELECT * FROM users WHERE email=?", ROW_MAPPER, email);
-        return DataAccessUtils.singleResult(users);
+    public User getByEmail(String email) { //TODO get rid of the same code wit get()
+        List<JdbcUser> jdbcUserList = jdbcTemplate.query("SELECT * FROM users WHERE email=?", ROW_MAPPER, email);
+        JdbcUser jdbcUser = DataAccessUtils.singleResult(jdbcUserList);
+        if (jdbcUser == null) {
+            return null;
+        }
+        return convertToUser(jdbcUser);
     }
 
     @Override
     public List<User> getAll() {
-        return jdbcTemplate.query("SELECT * FROM users", ROW_MAPPER);
+        List<JdbcUser> jdbcUserList = jdbcTemplate.query("SELECT * FROM users", ROW_MAPPER);
+        return jdbcUserList.stream()
+                .map(JdbcConversionUtil::convertToUser)
+                .collect(Collectors.toList());
     }
 }
