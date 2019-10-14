@@ -3,10 +3,10 @@ package com.itlbv.routineplanner.model;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Period;
+import java.util.Objects;
 
 public class Routine extends AbstractEntity {
 
-    private User user;
     private String description;
     private LocalDate startDate, endDate;
     private LocalTime timeOfDay;
@@ -16,23 +16,14 @@ public class Routine extends AbstractEntity {
     public Routine() {
     }
 
-    public Routine(Integer id, User user, String name, String description,
+    public Routine(Integer id, String name, String description,
                    LocalDate startDate, LocalDate endDate, LocalTime timeOfDay, Period period) {
         super(id, name);
-        this.user = user;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
         this.timeOfDay = timeOfDay;
         this.period = period;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public String getDescription() {
@@ -73,5 +64,31 @@ public class Routine extends AbstractEntity {
 
     public void setPeriod(Period period) {
         this.period = period;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Routine)) return false;
+        if (!super.equals(o)) return false;
+
+        Routine routine = (Routine) o;
+
+        if (!Objects.equals(description, routine.description)) return false;
+        if (!startDate.equals(routine.startDate)) return false;
+        if (!endDate.equals(routine.endDate)) return false;
+        if (!timeOfDay.equals(routine.timeOfDay)) return false;
+        return Objects.equals(period, routine.period);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + startDate.hashCode();
+        result = 31 * result + endDate.hashCode();
+        result = 31 * result + timeOfDay.hashCode();
+        result = 31 * result + (period != null ? period.hashCode() : 0);
+        return result;
     }
 }
