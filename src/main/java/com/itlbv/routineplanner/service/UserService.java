@@ -1,21 +1,54 @@
 package com.itlbv.routineplanner.service;
 
 import com.itlbv.routineplanner.model.User;
+import com.itlbv.routineplanner.repository.UserRepository;
 import com.itlbv.routineplanner.util.NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface UserService {
+@Service
+public class UserService {
 
-    User create(User user);
+    private final UserRepository repository;
 
-    void update(User user);
+    @Autowired
+    public UserService(UserRepository repository) {
+        this.repository = repository;
+    }
 
-    void delete(int id) throws NotFoundException;
+    public User create(User user) {
+        return repository.save(user);
+    }
 
-    User get(int id) throws NotFoundException;
+    public void update(User user) {
+        repository.save(user);
+    }
 
-    User getByEmail(String email) throws NotFoundException;
+    public void delete(int id) throws NotFoundException {
+        if (!repository.delete(id)) {
+            throw new NotFoundException("Failed deleting user with id=" + id);
+        }
+    }
 
-    List<User> getAll();
+    public User get(int id) throws NotFoundException {
+        User user = repository.get(id);
+        if (user == null) {
+            throw new NotFoundException("Not found user with id=" + id);
+        }
+        return user;
+    }
+
+    public User getByEmail(String email) throws NotFoundException {
+        User user = repository.getByEmail(email);
+        if (user == null) {
+            throw new NotFoundException("Not found user with email=" + email);
+        }
+        return user;
+    }
+
+    public List<User> getAll() {
+        return repository.getAll();
+    }
 }
