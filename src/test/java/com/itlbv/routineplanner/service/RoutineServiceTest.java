@@ -11,14 +11,14 @@ import java.util.List;
 import static com.itlbv.routineplanner.TestData.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-class RoutineServiceImplTest extends AbstractServiceTest {
+class RoutineServiceTest extends AbstractServiceTest {
 
     @Autowired
     RoutineService service;
 
     @Test
     void create() {
-        Routine routineNew = new Routine(null, USER_1, "routineNew");
+        Routine routineNew = createTestRoutine(null, USER_1, "routineNew");
         Routine routineDB = service.create(routineNew, USER_1.getId());
         routineNew.setId(routineDB.getId());
         List<Routine> routinesExpected = new ArrayList<>(USER_1_ROUTINES);
@@ -28,11 +28,11 @@ class RoutineServiceImplTest extends AbstractServiceTest {
 
     @Test
     void update() {
-        Routine routineExpected = new Routine(100003, USER_1, "testUpdate");
+        Routine routineTest = createTestRoutine(100003, USER_1, "testUpdate");
         Routine routineDB = service.get(100003, USER_1.getId());
         routineDB.setName("testUpdate");
         service.update(routineDB, USER_1.getId());
-        assertEquals(routineExpected, service.get(100003, USER_1.getId()));
+        assertEquals(routineTest, service.get(100003, USER_1.getId()));
     }
 
     @Test

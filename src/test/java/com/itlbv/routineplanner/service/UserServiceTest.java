@@ -9,16 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.itlbv.routineplanner.TestData.USERS;
+import static com.itlbv.routineplanner.TestData.createTestUser;
 import static org.junit.jupiter.api.Assertions.*;
 
-class UserServiceImplTest extends AbstractServiceTest {
+class UserServiceTest extends AbstractServiceTest {
 
     @Autowired
     UserService service;
 
     @Test
     void create() {
-        User userNew = new User(null, "userNew", "emailNew");
+        User userNew = createTestUser(null, "userNew", "emailNew");
         User userDB = service.create(userNew);
         userNew.setId(userDB.getId());
         List<User> usersExpected = new ArrayList<>(USERS);
@@ -28,7 +29,7 @@ class UserServiceImplTest extends AbstractServiceTest {
 
     @Test
     void update() {
-        User userExpected = new User(100000, "testUpdate", "email1");
+        User userExpected = createTestUser(100000, "testUpdate", "email1@gmail.com");
         User userDB = service.get(100000);
         userDB.setName("testUpdate");
         service.update(userDB);
@@ -50,6 +51,8 @@ class UserServiceImplTest extends AbstractServiceTest {
 
     @Test
     void get() {
+        User userTest = USERS.get(0);
+        User userServ = service.get(100000);
         assertEquals(USERS.get(0), service.get(100000));
     }
 
@@ -61,7 +64,7 @@ class UserServiceImplTest extends AbstractServiceTest {
     @Test
     void getByEmail() {
         User userExpected = USERS.get(0);
-        User userDB = service.getByEmail("email1");
+        User userDB = service.getByEmail("email1@gmail.com");
         assertEquals(userExpected, userDB);
     }
 
