@@ -43,7 +43,7 @@
         <bootstrap.version>4.3.1</bootstrap.version>
 
         <!-- Database -->
-        <postgresql.version>42.2.5</postgresql.version>
+        <postgresql.version>42.2.25</postgresql.version>
         <tomcat-jdbc.version>9.0.20</tomcat-jdbc.version>
     </properties>
 
